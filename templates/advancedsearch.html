@@ -1,0 +1,266 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include '_includes/head.html' %}
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  {% include '_includes/preloader.html' %}
+
+  <!-- Navbar -->
+  {% include '_includes/navbar.html' %}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% include '_includes/sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% include '_includes/content-header.html' %}
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="card-header">
+                        <h4 class="card-title"> </span><i class="fas fa-filter orange-text mr-2" style="font-size: 20px;"></i>  Advanced Search Filters</h4>
+                       
+                    </div>
+                  <div class="card-body ">
+                    <div>
+                        <form id="myForm1" action="{% url 'PreviewApp:advancedsearchreceipt' %}" method="get">
+                            {% csrf_token %}
+                            <div class=" no-border p-4 row">
+                                <div class=" form-group col-lg-2 col-md-6 col-sm-6">
+                                    <label for="datetimepicker">Start Date</label>
+                                    <input  class="form-control form-control-sm " type="date" name="start-date" value="{{startdate}}" >
+                                </div>
+                                <div class="form-group col-lg-2 col-md-6 col-sm-6">
+                                    <label for="datetimepicker">End Date</label>
+                                    <input class="form-control form-control-sm " type="date" name="end-date" value="{{enddate}}" >
+                                </div>
+                                
+                                <div class=" form-group col-lg-2 col-md-6 col-sm-6">
+                                    <label for="datetimepicker">Search Phrase</label>
+                                    <input  class="form-control form-control-sm " type="text" name="search" placeholder="Search phrase ...">
+                                </div>
+                            
+                        
+                                <div class="dropdown form-group  col-lg-2 col-md-6 col-sm-6">
+                                    <label for="doctype">Filter Document Type:</label>
+                                    <select name="doctype" id="doctype" class="form-control form-control-sm " > 
+                                        <option value="All" selected>All</option>
+                                        <option value='Payment Advice' >Payment Advice</option>
+                                        <option value='Receipt' >Receipts</option>
+                                    </select>
+                                </div>
+                                        
+                                <div class="dropdown form-group  col-lg-2  col-md-6 col-sm-6">
+                                    <label for="classname">Filter Receipt Class:</label>
+                                    <select name="classname" id="classname" class="form-control form-control-sm " > 
+                                        <option value='All' selected>All</option>
+                                        <option value='Non-Paired' >Non-Paired</option>
+                                        <option value='Paired' >Paired</option>
+                                    </select>
+                                </div>
+                            
+                                <div class="dropdown form-group col-lg-2  col-md-6 col-sm-6 ">
+                                    <label for="preparedby">Prepared By:</label>
+                                    <select name="preparedby" id="preparedby" class="form-control form-control-sm " > 
+                                        <option value="All" selected>All</option>
+                                        {% for i in preparedbylist %}
+                                            <option value='{{i}}'>{{i}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% if request.user.is_admin %}
+                            
+                                <div class="dropdown form-group col-lg-2  col-md-6 col-sm-6 ">
+                                    <label for="organization">Filter Business:</label>
+                                    <select name="organization" id="organization" class="form-control form-control-sm " >
+                                        
+                                        <option value="All" selected>All</option>
+                                        
+                                        <option value='HQ'>Sierra Leone</option>
+                                        
+                                        <option value='KE' >Kenya</option>
+                                        
+                                        <option value='ZW' >Zimbabwe</option>
+                                        
+                                        <option value='TN' >Tunisia</option>
+                                        
+                                        <option value='NG'>Nigeria</option>
+                                        
+                                        <option value='GH' >Ghana</option>
+                                        
+                                        <option value='CIV' >Ivory Coast</option> 
+    
+                                    </select>
+                                </div>
+                                {% endif %}
+                                <div class="form-group text-center mt-4  col-lg-2  col-md-6 col-sm-6 ">
+                                    <button type="submit" class="btn btn-warning btn-md"><small>Submit Search</small></button>
+                                    <!-- <a class="btn btn-info btn-md" onclick="subitOnClick('myForm1')" ><small>Submit Search</small></a> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="card-header">
+                        <h3 class="card-title"> </span><i class="fas fa-poll-h ml-3 mr-2 mb-2 orange-text"></i> Search Results </h3>
+                       
+                    {% if startdate %}
+                        {% if enddate %}
+                        <div class="d-inline-flex ml-4 mb-0  pl-1  pr-1 text-center">
+                            <p class="ml-2"><small>Start Date Filter: <span class="font-weight-bold text-danger">{{startdate}}</span></small></p>
+                            <p class="ml-2"><small>End Date Filter: <span class="font-weight-bold text-danger">{{enddate}}</span></small></p>
+                        </div>
+                        {% else %}
+                        <div class="d-inline-flex ml-4 mb-0  pl-1  pr-1 text-center">
+                            <p class="ml-2"><small>Start Date Filter: <span class="font-weight-bold text-danger">{{startdate}}</span></small></p>
+                            <p class="ml-2"><small>End Date Filter: <span class="font-weight-bold text-danger">Today</span></small></p>
+                        </div>
+                        {% endif %}
+                    {% else %}
+                        {% if enddate %}
+                        <div class="d-inline-flex ml-4 mb-0  pl-1  pr-1 text-center">
+                            <p class="ml-2"><small>Start Date Filter: <span class="font-weight-bold text-danger">Today</span></small></p>
+                            <p class="ml-2"><small>End Date Filter: <span class="font-weight-bold text-danger">{{startdate}}</span></small></p>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                    {% if searchphrase %}
+                    <div class="d-inline-flex ml-4 mb-0  pl-1  pr-1 text-center">
+                       
+                        <p class="ml-2"><small>Search Phrase: <span class="font-weight-bold text-danger">{{searchphrase}}</span></small></p>
+  
+                    </div>
+                    {% endif %}
+
+                    <div class="d-inline-flex ml-4 mb-0  pl-1  pr-1 text-center">
+                        {% if doctype %}
+                        <p class="ml-2"><small>  Doctype Filter: <span class="font-weight-bold text-danger">{{doctype}}</span></small></p>
+                        {% endif %}
+                        {% if organization %}
+                        <p class="ml-2"><small>  Organization Filter: <span class="font-weight-bold text-danger">{{organization}}</span></small></p>
+                        {% endif %}
+                        {% if preparedby %}
+                        <p class="ml-2"><small> Owner Filter: <span class="font-weight-bold text-danger">{{preparedby}}</span></small></p>
+                        {% endif %}
+                        {% if classname %}
+                        <p class="ml-2"><small> Receipt Class Filter: <span class="font-weight-bold text-danger">{{classname}}</span></small></p>
+                        {% endif %}
+                    </div>
+                    </div>
+                       
+                   
+                  <div class="card-body ">
+                  
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                           
+                            <!-- show search result given a search -->
+                            {% if search %}
+                                {% if technical_advancedsearch_result or mappedtechnical_advancedsearch_result %}
+                                    {% if technical_advancedsearch_result %}
+                                        <thead >
+                                            <th class="alert alert-danger">
+                                                {% if doctype == None %}
+                                                    All - Non-paired  <span style="float: right;font-size: xx-small;margin-right: 10px;">Date Modified / Created Date </span>
+                                                {% else %}
+                                                    {{doctype}} - Non-paired <span style="float: right;font-size: xx-small;margin-right: 10px;">Date Modified / Created Date </span>
+                                                {% endif %}
+                                            </th>
+                                        </thead>
+                                        <tbody > 
+                                            {% for i in technical_advancedsearch_result %}
+                                            <tr data-widget="expandable-table" aria-expanded="false">  
+                                                <td>
+                                                    <i class="now-ui-icons gestures_tap-01"></i><a class="receipts" style="color: black;"  href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}"> {{i.ReceiptNumber}} - {{i.PaymentPartner|lower|capfirst}} <small class="font-weight-bold text-danger">  {{i.BalanceOriginal}} {{i.OriginalCurrencyCode}}  </small> <span style="float: right;font-size: xx-small;">{{i.ValueDate | date:"SHORT_DATE_FORMAT"}} </span></a>
+                                                </td> 
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    {% endif %}
+                                    {% if mappedtechnical_advancedsearch_result %}
+                                        <thead >
+                                            <th class="alert alert-danger">
+                                                {% if doctype == 'Receipt' %}
+                                                    Remittance Allocation - Paired  <span style="float: right;font-size: xx-small;margin-right: 10px;">Date Modified / Created Date </span>
+                                                {% elif doctype == None %}
+                                                    All - Paired  <span style="float: right;font-size: xx-small;margin-right: 10px;">Date Modified / Created Date </span>
+                                                {% else %}
+                                                    {{doctype}} - Paired <span style="float: right;font-size: xx-small;margin-right: 10px;">Date Modified / Created Date </span>
+                                                {% endif %}
+                                            </th>
+                                        </thead>
+                                        <tbody > 
+                                            {% for i in mappedtechnical_advancedsearch_result %}
+                                            <tr data-widget="expandable-table" aria-expanded="false">  
+                                                <td>
+                                                    <i class="now-ui-icons gestures_tap-01"></i><a class="receipts" style="color: black;"  href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}"> {{i.ReceiptNumber}} - {{i.BusinessPartner|lower|capfirst}} <small class="font-weight-bold text-danger">  {{i.Amount}} {{i.Currency}}  </small> <span style="float: right;font-size: xx-small;">{{i.ValueDate | date:"SHORT_DATE_FORMAT"}} </span></a>
+                                                </td> 
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    {% endif %}
+                                {% else %}
+                                <div class="hero2-text">
+                                    <!-- <i class="now-ui-icons travel_info mb-3" style="font-size:40px"></i> -->
+        
+                                    <h1 style="font-size:20px">No Results!!! </h1>
+                                    
+                                </div>
+                                {% endif %}
+                            {% else %}
+                    
+                            <div class="hero2-text">
+                                <!-- <i class="now-ui-icons travel_info mb-3" style="font-size:40px"></i> -->
+    
+                                <h1 style="font-size:20px">No Results!!! </h1>
+                                
+                            </div>
+                            {% endif %}
+                        
+                            </table>
+                          </div>
+               
+                  </div>
+                
+                </div>
+            </div>
+        </div>
+      </div>
+    
+      <!--/. container-fluid -->
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  {% include '_includes/footer.html' %}
+</div>
+{% include '_includes/scripts.html' %}
+</body>
+</html>

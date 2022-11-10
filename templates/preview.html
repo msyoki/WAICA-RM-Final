@@ -1,0 +1,270 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include '_includes/head.html' %}
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  {% include '_includes/preloader.html' %}
+
+  <!-- Navbar -->
+  {% include '_includes/navbar.html' %}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% include '_includes/sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% include '_includes/content-header.html' %}
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+   
+      <div class="container-fluid">
+    
+      
+<div class="row scroll-smooth">
+        
+    <div class="col-md-4 ">
+        <div class=" card card-metadata">
+            <div class="card-header bg-danger" >
+            <h4 class="card-title "> </span><i class="now-ui-icons text_align-left  text-primary mr-2"></i>  MetaData Card</h4>        
+              
+            </div>
+          <div class="card-body  metadata-body ml-2">
+            <div class="container-fluid scroll ">
+                <div class="table-responsive ">
+                    <table class="table table-bordered table-hover">
+                    {% if filepath %} 
+                        <tbody>
+                        {% if technical %}
+                            {% for i in technical %}
+                              
+                                <tbody >
+                                    
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Class :</strong>  Non-Paired</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >ID #</strong>  {{receipt_number}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Document Type :</strong>  {{i.Category}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Payment Partner :</strong>  {{i.PaymentPartner|lower|capfirst}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Bank ID  :</strong>  {{i.BankID}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Bank Name :</strong>  {{i.BankName  }}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Bank Account Number :</strong>  {{i.BankAccountNo}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Bank Account Currency Code  :</strong>  {{i.BankAccountCurrencyCode}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Original Currency Code  :</strong>  {{i.OriginalCurrencyCode }}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Balance Original  :</strong>  {{i.BalanceOriginal}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Balance Outstanding Original :</strong>  {{i.BalanceOutstandingOriginal}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Remittance Direction  :</strong>  {{i.RemittanceDirection}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Remittance Status  :</strong>  {{i.RemittanceStatus}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Receiver Email  :</strong>  {{i.ReceiverEmail}}</td>
+                                    </tr>
+                                 
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Created Date :</strong>  {{i.ValueDate}}</td>
+                                    </tr>
+                               
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Sent Status :</strong>  {{i.SendStatus}}</td>
+                                    </tr>
+                                </tbody>
+                                
+                            {% endfor %}
+                        {% endif %} 
+                        {% if mappedtechnical %}
+                            {% for i in mappedtechnical %}
+                            
+                                <tbody>
+                                
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Class :</strong> Paired</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >ID #</strong> {{receipt_number}}</td>
+                                    </tr>
+                                    {% if i.Category == 'Receipt'  %}
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Document Type :</strong> Remittance Allocation</td>
+                                    </tr>
+                                    {% else %}
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Document Type :</strong>  {{i.Category}}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if i.Category == "Payment Advice" %}
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Payment Purpose :</strong>  {{i.Purpose}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Document Language :</strong>  {{i.Doclanguage}}</td>
+                                    </tr>
+                                    {% endif %}
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Issued By :</strong>  {{i.IssuedBy}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Worksheet (SICS) :</strong>  {{i.WorkSheetId}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Payment Partner :</strong>  {{i.BusinessPartner|lower|capfirst}}</td>
+                                    </tr>
+                                    
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Currency :</strong>  {{i.Currency}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Amount  :</strong>  {{i.Amount}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Balance Unsettled Amount :</strong>  {{i.BalanceUnsettledAmount}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >PaymentType  :</strong>  {{i.PaymentType}}</td>
+                                    </tr>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Receiver Email  :</strong>  {{i.ReceiverEmail}}</td>
+                                    </tr>
+                                  
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Created Date :</strong>  {{i.ValueDate}}</td>
+                                    </tr>
+
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td><strong >Sent Status :</strong>  {{i.SendStatus}}</td>
+                                    </tr>
+                                </tbody>
+                               
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    {% endif %}
+                    </table>
+                </div>
+            </div>
+      
+          </div>
+        
+         
+         <div class="card-footer">
+            {% if filepath %}
+             
+           
+            {% if technical %}
+                {% for i in technical %}
+                <a href="{% url 'PreviewApp:receiptupdatepage' foo=i.ReceiptNumber %}" class="btn btn-info btn-sm" > <span  ><i style="font-size: 12px;" class="fas fa-edit mr-1  ml-2"></i><small>Edit Receipt Doc Language</small> </span></a>  
+                
+                    {% if i.SendStatus == False %}
+                    <a href="{% url 'Mailer:mailer' foo=i.ReceiptNumber %}" class="btn btn-primary btn-sm  pl-1" ><i style="font-size: 12px;" class="fas fa-paper-plane   ml-1"></i><small> Send E-Mail</small></a>
+                    {% else %}
+                    <a href="{% url 'Mailer:mailer' foo=i.ReceiptNumber %}" class="btn btn-danger btn-sm  pl-1" > <i style="font-size: 12px;" class="fas fa-envelope-open-text mr-1  ml-2"></i><small> Re-send to client</small> </a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if mappedtechnical %}
+                {% for i in mappedtechnical %} 
+                    {% if i.Category == 'Payment Advice' %}
+
+                    <a href="{% url 'PreviewApp:paymentadviseupdatepage' foo=i.ReceiptNumber %}" class="btn btn-info btn-sm" > <span  ><i style="font-size: 12px;" class="fas fa-edit mr-1  ml-2"></i><small>Edit PA Particulars </small> </span></a>  
+                    {% elif i.Category == 'Receipt' %}
+                    <a href="{% url 'PreviewApp:remittanceallocationupdatepage' foo=i.ReceiptNumber %}" class="btn btn-info btn-sm" > <span  ><i style="font-size: 12px;" class="fas fa-edit mr-1  ml-2"></i><small>Edit RA Doc Language  </small> </span></a>  
+                    {% endif %}
+                    {% if i.SendStatus == False %}
+                   
+                    <a href="{% url 'Mailer:mailer' foo=i.ReceiptNumber %}" class="btn btn-primary btn-sm  pl-1" ><i style="font-size: 12px;" class="fas fa-paper-plane  ml-1"></i><small> Send E-Mail</small></a>
+           
+                    {% else %}
+                   
+                    <a href="{% url 'Mailer:mailer' foo=i.ReceiptNumber %}" class="btn btn-danger btn-sm  pl-1" > <i style="font-size: 12px;" class="fas fa-envelope-open-text mr-1  ml-2"></i><small> Re-send to client</small> </a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% else %}
+        {% endif %}
+         </div>
+      
+        </div>
+    </div>
+    <div class="col-md-8   ">
+        {% if request.META.HTTP_HOST == '127.0.0.1:3000' %}
+        <iframe class="card card-receipt"  style="width: 100%; border-color: white;border-radius:6px;margin: 0%;background-color: white;" name="text" src="http://127.0.0.1:3000/pdf_view/{{receipt_number}}" ></iframe>
+        {% else %}
+        <iframe class="card  card-receipt"  style="width: 100%;border-color: white;border-radius:6px;margin: 0%;background-color: white;" name="text" src="http://{{ request.META.HTTP_HOST }}/pdf_view/{{receipt_number}}" ></iframe>
+        {% endif %}
+    </div>
+</div>
+      </div>
+    
+      <!--/. container-fluid -->
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    {% include '_includes/footer.html' %}
+</div>
+{% include '_includes/scripts.html' %}
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

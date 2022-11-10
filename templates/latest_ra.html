@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include '_includes/head.html' %}
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  {% include '_includes/preloader.html' %}
+
+  <!-- Navbar -->
+  {% include '_includes/navbar.html' %}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% include '_includes/sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% include '_includes/content-header.html' %}
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+   
+      <div class="container-fluid">
+    
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title"> </span><i class="fas fa-money-check-alt ml-3 orange-text"></i> Latest <small>(20)</small> Remittance Allocations </h3>
+           
+             
+            </div>
+            <!-- ./card-header -->
+            <div class="card-body">
+
+              <table class="table table-bordered table-hover">
+                {% if latest_remittance_allocations %}
+                <thead>
+                  <tr>
+                    <th class="bg-danger" style="font-weight: normal;"> Results <span style="float: right;font-size: small;margin-right: 10px;font-weight: normal;">Date Modified / Created Date </span></th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in latest_remittance_allocations %}
+                  <tr data-widget="expandable-table" aria-expanded="false">
+                    <td> <i class="now-ui-icons gestures_tap-01"></i><a class="receipts" style="color: black;" href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}"> {{i.ReceiptNumber}} - {{i.BusinessPartner |lower|capfirst}}  <small class="font-weight-bold text-danger">  {{i.Amount}} {{i.Currency}}  </small> <span style="float: right;font-size: x-small;">{{i.ValueDate | date:"SHORT_DATE_FORMAT"}} </span></a></td>
+                    
+                  </tr>
+                  {% endfor %}
+           
+                </tbody>
+                {% endif %}
+
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+   
+      </div>
+      </div>
+    
+      <!--/. container-fluid -->
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    {% include '_includes/footer.html' %}
+</div>
+{% include '_includes/scripts.html' %}
+</body>
+</html>

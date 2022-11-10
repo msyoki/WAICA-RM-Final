@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include '_includes/head.html' %}
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  {% include '_includes/preloader.html' %}
+
+  <!-- Navbar -->
+  {% include '_includes/navbar.html' %}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% include '_includes/sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% include '_includes/content-header.html' %}
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+   
+      <div class="container-fluid">
+    
+      
+        <div class="row">
+   
+            <div class="col-md-4 ">
+              <div class="card card-metadata">
+                <div class="card-header">
+                    <h3 class="card-title"> </span><i class="fas fas fa-file-invoice ml-3  orange-text"></i> Edit Form - Payment Advice</h3><br> <br>  
+                 <div class="alert alert-danger">
+                    <h6 >Payment Advice  # {{receipt_number}}  </h6>
+                 </div>
+<!--                        
+                  {% if mappedtechnical  %}
+                  {% for i in mappedtechnical  %}
+                    <div class="row ">
+                      
+                      <div class="col-md-12 alert-info text-white  p-3">
+                        <small >
+                          Current currency: <span >{{i.Currency}}</span><br>
+                          Current Amount: <span >{{i.Amount}} {{i.Currency}}</span><br>
+                          Purpose: <span>{{i.Purpose}} </span><br>
+                        </small>
+                      </div>
+                    </div>  
+                  {% endfor  %}
+                  {% endif %} -->
+                </div>
+                <div class="card-body  ">
+                    <div class="container-fluid ">
+                      <form action="{% url 'PreviewApp:paymentadviseupdate' foo=receipt_number %}" method="post" >
+                          {% csrf_token %}
+                          <div class="row ">
+                            <div class="col-md-1 "></div>
+                            <div class="col-md-10">
+                              <div class="form-group text-center">
+                            
+                                {% for i in mappedtechnical  %}
+                                  {% if i.Purpose == None  %}
+                                  <label for="purpose" style="color: black;"><span class="text-primary">*</span>Purpose</label>
+                                  <select name="purpose" id="purpose"  class="form-control form-control-sm" required>
+                                    <option value="" selected="selected" disabled>Select Purpose</option>
+                                    <option value="Claim" >Claim Payment</option>
+                                    <option value="Retro Premium">Retro Premium Payment</option>
+                                  </select>
+                                  {% else %}
+                                  <label for="purpose" style="color: black;">Purpose</label>
+                                  <select name="purpose" id="purpose"  class="form-control form-control-sm" >
+                                    <option value="" selected="selected" disabled>Select Purpose</option>
+                                    <option value="Claim" >Claim Payment</option>
+                                    <option value="Retro Premium">Retro Premium Payment</option>
+                                  </select>
+                                  {% endif %}
+                                {% endfor  %}
+                                
+                        
+                              </div>
+                              <div class="form-group text-center">
+                                  <label for="currency" style="color: black;">Currency</label>
+                                  <select name="currency" id="currency"  class="form-control form-control-sm" >
+                                      <option value="" selected="selected" disabled>Select Currency</option>
+                                      <option value="USD" >United States Dollars</option>
+                                      <option value="EUR">Euro</option>
+                                      <option value="KES">Kenyan Shillings</option>
+                                      <option value="GBP">United Kingdom Pounds</option>
+                                      <option value="DZD">Algeria Dinars</option>
+                                      <option value="ARP">Argentina Pesos</option>
+                                      <option value="AUD">Australia Dollars</option>
+                                      <option value="ATS">Austria Schillings</option>
+                                      <option value="BSD">Bahamas Dollars</option>
+                                      <option value="BBD">Barbados Dollars</option>
+                                      <option value="BEF">Belgium Francs</option>
+                                      <option value="BMD">Bermuda Dollars</option>
+                                      <option value="BRR">Brazil Real</option>
+                                      <option value="BGL">Bulgaria Lev</option>
+                                      <option value="CAD">Canada Dollars</option>
+                                      <option value="CLP">Chile Pesos</option>
+                                      <option value="CNY">China Yuan Renmimbi</option>
+                                      <option value="CYP">Cyprus Pounds</option>
+                                      <option value="CSK">Czech Republic Koruna</option>
+                                      <option value="DKK">Denmark Kroner</option>
+                                      <option value="NLG">Dutch Guilders</option>
+                                      <option value="XCD">Eastern Caribbean Dollars</option>
+                                      <option value="EGP">Egypt Pounds</option>
+                                      <option value="FJD">Fiji Dollars</option>
+                                      <option value="FIM">Finland Markka</option>
+                                      <option value="FRF">France Francs</option>
+                                      <option value="DEM">Germany Deutsche Marks</option>
+                                      <option value="XAU">Gold Ounces</option>
+                                      <option value="GRD">Greece Drachmas</option>
+                                      <option value="HKD">Hong Kong Dollars</option>
+                                      <option value="HUF">Hungary Forint</option>
+                                      <option value="ISK">Iceland Krona</option>
+                                      <option value="INR">India Rupees</option>
+                                      <option value="IDR">Indonesia Rupiah</option>
+                                      <option value="IEP">Ireland Punt</option>
+                                      <option value="ILS">Israel New Shekels</option>
+                                      <option value="ITL">Italy Lira</option>
+                                      <option value="JMD">Jamaica Dollars</option>
+                                      <option value="JPY">Japan Yen</option>
+                                      <option value="JOD">Jordan Dinar</option>
+                                      <option value="KRW">Korea (South) Won</option>
+                                      <option value="LBP">Lebanon Pounds</option>
+                                      <option value="LUF">Luxembourg Francs</option>
+                                      <option value="MYR">Malaysia Ringgit</option>
+                                      <option value="MXP">Mexico Pesos</option>
+                                      <option value="NLG">Netherlands Guilders</option>
+                                      <option value="NZD">New Zealand Dollars</option>
+                                      <option value="NOK">Norway Kroner</option>
+                                      <option value="PKR">Pakistan Rupees</option>
+                                      <option value="XPD">Palladium Ounces</option>
+                                      <option value="PHP">Philippines Pesos</option>
+                                      <option value="XPT">Platinum Ounces</option>
+                                      <option value="PLZ">Poland Zloty</option>
+                                      <option value="PTE">Portugal Escudo</option>
+                                      <option value="ROL">Romania Leu</option>
+                                      <option value="RUR">Russia Rubles</option>
+                                      <option value="SAR">Saudi Arabia Riyal</option>
+                                      <option value="XAG">Silver Ounces</option>
+                                      <option value="SGD">Singapore Dollars</option>
+                                      <option value="SKK">Slovakia Koruna</option>
+                                      <option value="ZAR">South Africa Rand</option>
+                                      <option value="KRW">South Korea Won</option>
+                                      <option value="ESP">Spain Pesetas</option>
+                                      <option value="XDR">Special Drawing Right (IMF)</option>
+                                      <option value="SDD">Sudan Dinar</option>
+                                      <option value="SEK">Sweden Krona</option>
+                                      <option value="CHF">Switzerland Francs</option>
+                                      <option value="TWD">Taiwan Dollars</option>
+                                      <option value="THB">Thailand Baht</option>
+                                      <option value="TTD">Trinidad and Tobago Dollars</option>
+                                      <option value="TRL">Turkey Lira</option>
+                                      <option value="VEB">Venezuela Bolivar</option>
+                                      <option value="ZMK">Zambia Kwacha</option>
+                                      <option value="EUR">Euro</option>
+                                      <option value="XCD">Eastern Caribbean Dollars</option>
+                                      <option value="XDR">Special Drawing Right (IMF)</option>
+                                      <option value="XAG">Silver Ounces</option>
+                                      <option value="XAU">Gold Ounces</option>
+                                      <option value="XPD">Palladium Ounces</option>
+                                      <option value="XPT">Platinum Ounces</option>
+                                  </select>
+                          
+                              </div>
+                              <div class="form-group text-center">
+                                <label for="conversionrate" style="color: black;">Converstion Rate</label>
+                                <input type="text" name="rate" id="conversionrate" class="form-control form-control-sm text-center" placeholder="Enter Conversion Rate" >
+                            
+                              </div>
+                              
+                           
+                            
+                              <div class="form-group text-center">
+                                <label for="doclanguage" style="color: black;">Document Language</label>
+                                <select name="doclanguage" id="doclanguage"  class="form-control form-control-sm" >
+                                    <option value="" selected="selected" disabled>Select Language</option>
+                                    <option value="EN" >English</option>
+                                    <option value="FR">French</option>
+                                </select>
+                      
+                              </div>
+                          
+                            </div>
+                            <div class="col-md-1 "></div>
+                          </div>
+                
+                      
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group text-center">
+                                  
+                                <input type="submit" class="btn  btn-warning btn-sm " style="font-size: small;" value="Submit update">
+                                <div class="form-group ml-2 mt-3">
+                                  <a href="{% url 'PreviewApp:preview' foo=receipt_number %}" class="btn btn-danger btn-sm " ><small>Back to Metadata</small></a>
+                                    
+                                  {% for i in mappedtechnical %}
+                                  {% if i.SendStatus == False %}
+                                    <a href="{% url 'Mailer:mailer' foo=i.ReceiptNumber %}" class="btn btn-info btn-sm  " ><i style="font-size: 12px;" class="fas fa-paper-plane ml-1"></i><small> Send E-Mail</small></a>
+                                  {% else %}
+                                  <a href="{% url 'Mailer:mailer' foo=i.ReceiptNumber %}" class="btn btn-primary btn-sm " ><i style="font-size: 12px;" class="fas fa-envelope-open "></i>  <small>Re-send to client</small> </a>
+                                  {% endif %} 
+                                
+                                  {% endfor %}
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+                    </div>
+                </div>
+      
+              </div>
+            </div>
+            <div class="col-md-8   ">
+              {% if request.META.HTTP_HOST == '127.0.0.1:3000' %}
+              <iframe class="card card-receipt"  style="width: 100%; border-color: white;border-radius:6px;margin: 0%;background-color: white;" name="text" src="http://127.0.0.1:3000/pdf_view/MPR-KE-0422-00138" ></iframe>
+              {% else %}
+              <iframe class="card  card-receipt"  style="width: 100%;border-color: white;border-radius:6px;margin: 0%;background-color: white;" name="text" src="http://{{ request.META.HTTP_HOST }}/pdf_view/{{receipt_number}}" ></iframe>
+              {% endif %}
+          </div>
+          </div>  
+      </div>
+    
+      <!--/. container-fluid -->
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    {% include '_includes/footer.html' %}
+</div>
+{% include '_includes/scripts.html' %}
+</body>
+</html>

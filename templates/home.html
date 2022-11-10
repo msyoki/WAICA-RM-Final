@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include '_includes/head.html' %}
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  {% include '_includes/preloader.html' %}
+
+  <!-- Navbar -->
+  {% include '_includes/navbar.html' %}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% include '_includes/sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% include '_includes/content-header.html' %}
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+   
+      <div class="container-fluid">
+        <div class="card">
+          <div class="  ml-5  text-muted mb-2 mt-3">
+            <b>STATISTICS</b>
+          </div>
+          <div class="card-body ">
+          
+           <div class=" p-3 bg-light" style="font-size: samll;">
+            <!-- <h5 class="mb-2 mt-2">STATISTICS</h5> -->
+            <div class="row ml-3 mr-3 text-center ">
+              <div class="col-lg-4 col-12">
+                <div class=" bg-secondary p-3">
+                  
+                  <h4 ><i class="fas fa-receipt text-white"></i> {{technical_receipts.count}}</h4>
+                  <p>TOTAL RECEIPTS</p>
+  
+                 
+                </div>
+                
+              </div>
+           
+              <div class="col-lg-4 col-12">
+                <div class=" bg-secondary p-3">
+          
+                  <h4><i class="fas fa-file-invoice text-white"></i> {{technical_receipts.count}}</h4>
+                  <p>TOATAL PAYMENT ADVICES</p>
+                </div>
+                
+              </div>
+              <div class="col-lg-4 col-12">
+                <div class=" bg-secondary p-3">
+         
+                  <h4><i class="fas fa-money-check-alt text-white"></i>  {{technical_receipts.count}}</h4>
+                  <p>TOTAL REMITTANCE ALLOCATIONS</p>
+                </div>
+                
+              </div>
+              
+          
+            </div>
+          
+           </div>
+         
+           <div class="mt-5">
+            <div class=" ml-4   text-muted mb-2 mt-3">
+              <b> DASHBOARD MENU</b>
+            </div>
+         
+            <div class="row mt-3 ">
+            
+           
+            
+              
+      
+                <div class="col-lg-3 col-6">
+                  <a href="{% url 'PreviewApp:advancedsearchreceipt' %}">
+                    <!-- small card -->
+                    <div class="small-box home-buttons">
+                      <div class="inner">
+                        <div class="h1">
+                          <i class="fas fa-filter text-white ml-3 mt-2" ></i>
+                          <!-- <i class="fas fa-list orange-text" ></i> -->
+                        </div>
+                        <p class="ml-3">Advanced Search</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+       
+                <div class="col-lg-3 col-6">
+                  <a href="{% url 'PreviewApp:latest_receipts' %}">
+                    <!-- small card -->
+                    <div class="small-box bg-success">
+                      <div class="inner">
+                        <div class="h1">
+                          <i class="fas fa-receipt text-white ml-3 mt-2"></i>
+                        </div>
+                        <p class="ml-3">Latest(20) Receipts</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              <div class="col-lg-3 col-6">
+                <a href="{% url 'PreviewApp:latest_pa' %}">
+                  <!-- small card -->
+                  <div class="small-box bg-danger">
+                    <div class="inner">
+                      <div class="h1">
+                        <i class="fas fa-file-invoice text-white ml-3 mt-2"></i>
+                      </div>
+                      <p class="ml-3">Latest(20) Payment Advices</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <a href="{% url 'PreviewApp:latest_ra' %}">
+                  <div class="small-box bg-primary">
+                    <div class="inner">
+                      <div class="h1">
+                        <i class="fas fa-money-check-alt text-white ml-3 mt-2"></i>
+                      </div>
+                      <p class="ml-3">Latest(20) REM-Allocations</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+        
+
+    
+          
+        
+              
+            </div>
+           
+           </div>
+          
+          </div>
+        </div>
+   
+        
+   
+          
+      
+      </div>
+    
+      <!--/. container-fluid -->
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  {% include '_includes/footer.html' %}
+
+</div>
+{% include '_includes/scripts.html' %}
+</body>
+</html>
