@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include '_includes/head.html' %}
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  {% include '_includes/preloader.html' %}
+
+  <!-- Navbar -->
+  {% include '_includes/navbar.html' %}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% include '_includes/sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% include '_includes/content-header.html' %}
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+   
+        <div class="row">
+            <!-- <div class="col-md-1"></div>  -->
+            <div class="col-md-4">
+              <div class="card card-metadata ">
+                <div class="card-header">
+                    <h3 class="card-title"> </span><i class="fas fa-paper-plane ml-3 mr-1  orange-text"></i> Confirm Mailer Details / Mail</h3><br> <br>  
+                </div>
+                {% if sendtechnical %}
+                    {% for i in sendtechnical %}
+                    <div class="card-body  metadata-body">
+                        <div class="container-fluid ">
+                            {% if i.ReceiverEmail == None %}
+                            <p >  Add Receiver Email (<small>Receiver Email is missing</small>)</p> 
+                      
+                            <form action="{% url 'PreviewApp:technicalmail' pk=i.id %}" method="post">
+                              {% csrf_token %}
+                              <div class="row">
+                                <div class="col-md-10 pr-1">
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="text" name="receivermail" class="form-control form-control-sm" placeholder="{{placeholder}}" required>       
+                                     <small class=" mt-2" >NB: use a semicolon to add a cc address e.g.  Recepient@mail.com;cc1@waica.com;cc2@waica.com </small>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                      
+                                      <!-- <input type="submit" class="btn btn-info btn-sm" style="border-radius: 25px;font-size: x-small;" value="Save update"> -->
+                                      <div class="form-group ml-2 mt-3">
+                                          <a href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}" class="btn btn-danger btn-sm" ><small>Back to Metadata</small></a>
+                                          <input type="submit" class="btn btn-warning" style="font-size: small;" value="Save update">
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                            {% elif i.ReceiverEmail|length < 1 %}
+                            <p >  Add Receiver Email (Receiver Email is missing)</p> 
+                            <form action="{% url 'PreviewApp:technicalmail' pk=i.id %}" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                  <div class="col-md-10 pr-1">
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">Email address</label>
+                                      <input type="text" name="receivermail" class="form-control form-control-sm" placeholder="{{placeholder}}" required>        
+                                        <p class=" mt-2" style="color:#555">NB: use a semicolon to add a cc address e.g.  Recepient@mail.com;cc1@waica.com;cc2@waica.com </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                        
+                                        <!-- <input type="submit" class="btn btn-info btn-sm" style="border-radius: 25px;font-size: x-small;" value="Save update"> -->
+                                        <div class="form-group ml-2 mt-3">
+                                            <a href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}" class="btn btn-danger btn-sm" ></i><small>Back to Metadata</small></a>
+                                            <input type="submit" class="btn btn-warning" style="font-size: small;" value="Save update">
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                            {% else %}
+                            <!-- <h5 class=" text-center" > CONFIRM MAILER DETAILS</h5> -->
+                               
+                            <div class="alert alert-info " >
+                              <p > <strong>Recepient</strong> : {{i.ReceiverEmail}}</p>
+                              <p > <strong>Subject</strong> : {{i.MailSubject}}</p>
+                              <p > <strong>Body</strong>:</p>
+                              <p > {{i.MailBody}}</p>
+                            </div>
+                            <!-- <h5 class="alert alert-dark" ><i class="now-ui-icons files_paper"></i> Receipt : #{{i.ReceiptNumber}}</h5> -->
+                            <a href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}" class="btn btn-danger btn-sm" ><small>Back to Metadata</small></a>
+                            <a href="{% url 'Mailer:sendtechnical' foo=i.ReceiptNumber %}" class="btn btn-sm btn-primary pl-1" ><i style="font-size: 12px;" class="fas fa-paper-plane mr-1  ml-1"></i> <small>Send E-Mail</small></a><br><br><br>
+                            <p >Update receiver E-mail address below if existing is invalid</p>
+                            <form action="{% url 'PreviewApp:technicalmail' pk=i.id %}" method="post">
+                              {% csrf_token %}
+                              <div class="row">
+                                <div class="col-md-10 pr-1">
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="text" name="receivermail" class="form-control form-control-sm" placeholder="{{placeholder}}" required>        
+                                      <p class=" mt-2" style="color:#555">NB: use a semicolon to add a cc address e.g.  Recepient@mail.com;cc1@waica.com;cc2@waica.com </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                      
+                                      <input type="submit" class="btn btn-warning btn-sm" style="font-size: small;" value="Save update">
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% elif sendmappedtechnical %}
+                    {% for i in sendmappedtechnical %}
+                    <div class="card-body mailer-body">
+                      <div class="container-fluid ">
+                          <div >
+                              {% if i.ReceiverEmail == None %}
+                                 <p >  Add Receiver Email (Receiver Email is missing)</p> 
+                              <form action="{% url 'PreviewApp:mappedtechnicalmail' pk=i.id %}" method="post">
+                                  {% csrf_token %}
+                                  <div class="row">
+                                  
+                                    <div class="col-md-10 pr-1">
+                                      <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <input type="text" name="receivermail" class="form-control form-control-sm" placeholder="{{placeholder}}" required>        
+                                         <p class=" mt-2" style="color:#555">NB: use a semicolon to add a cc address<br>  e.g.  Recepient@mail.com;cc1@waica.com;cc2@waica.com </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                          <a href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}" class="btn btn-danger btn-sm" ><small>Back to Metadata</small></a>
+                                          <input type="submit" class="btn btn-warning btn-sm" style="font-size: small;" value="Save update">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              {% elif i.ReceiverEmail|length < 1 %}
+                                 <p >  Add Receiver Email (Receiver Email is missing)</p> 
+                              <form  action="{% url 'PreviewApp:mappedtechnicalmail' pk=i.id %}" method="post">
+                                  {% csrf_token %}
+                                  <div class="row">
+                                    <div class="col-md-10 pr-1">
+                                      <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <input type="text" name="receivermail" class="form-control form-control-sm" placeholder="{{placeholder}}" required>        
+                                          <p class=" mt-2" style="color:#555">NB: use a semicolon to add a cc address e.g.  Recepient@mail.com;cc1@waica.com;cc2@waica.com </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                          <a href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}" class="btn btn-danger pl-1" > <small>Back to Metadata</small></a>
+                                          <input type="submit" class="btn btn-warning btn-sm" style="font-size: small;" value="Save update">
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              {% else %}
+                              <!-- <h5 class=" text-center" > CONFIRM MAILER DETAILS</h5> -->
+                
+                              <div class="alert alert-info " >
+                                <p > <strong>Recepient</strong> : {{i.ReceiverEmail}}</p>
+                                <p > <strong>Subject</strong> : {{i.MailSubject}}</p>
+                                <p > <strong>Body</strong>:</p>
+                                <p > {{i.MailBody}}</p>
+                              </div>
+                              <!-- <h5 class="alert alert-dark" ><i class="now-ui-icons files_paper"></i> Receipt : #{{i.ReceiptNumber}}</h5> -->
+                              <a href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}" class="btn btn-sm btn-danger  pl-1"  ><small>Back to Metadata</small></a>
+                              <a href="{% url 'Mailer:sendmapped' foo=i.ReceiptNumber %}" class="btn btn-sm btn-primary pl-1" ><i style="font-size: 12px;" class="fas fa-paper-plane   ml-1"></i><small> Send E-Mail</small></a><br><br><br>
+                              <p >Update receiver E-mail address below if existing is invalid</p>
+                              <form action="{% url 'PreviewApp:mappedtechnicalmail' pk=i.id %}" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                  <div class="col-md-10 pr-1">
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">Email address</label>
+                                      <input type="text" name="receivermail" class="form-control form-control" placeholder="{{placeholder}}" required>       
+                                       <p class=" mt-2" style="color:#555">NB: use a semicolon to add a cc address e.g.  Recepient@mail.com;cc1@waica.com;cc2@waica.com </p>
+                                    </div>
+                                  </div>
+                                </div>
+                               
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-group"> 
+                                      <input type="submit" class="btn btn-warning btn-sm" style="font-size: small;" value="Save update">
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                              {% endif %}
+                          </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+   
+              </div>
+            </div>
+            <div class="col-md-8   ">
+                {% if request.META.HTTP_HOST == '127.0.0.1:3000' %}
+                <iframe class="card card-receipt"  style="width: 100%; border-color: white;border-radius:6px;margin: 0%;background-color: white;" name="text" src="http://127.0.0.1:3000/pdf_view/MPR-KE-0422-00138" ></iframe>
+                {% else %}
+                <iframe class="card  card-receipt"  style="width: 100%;border-color: white;border-radius:6px;margin: 0%;background-color: white;" name="text" src="http://{{ request.META.HTTP_HOST }}/pdf_view/{{receipt_number}}" ></iframe>
+                {% endif %}
+            </div>
+            
+        
+          </div>  
+           
+    
+      <!--/. container-fluid -->
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  {% include '_includes/footer.html' %}
+
+</div>
+{% include '_includes/scripts.html' %}
+</body>
+</html>

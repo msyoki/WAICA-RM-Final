@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include '_includes/head.html' %}
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  {% include '_includes/preloader.html' %}
+
+  <!-- Navbar -->
+  {% include '_includes/navbar.html' %}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% include '_includes/sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% include '_includes/content-header.html' %}
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+   
+      <div class="container-fluid">
+    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card ">
+                  <div class="card-header">
+                    {% if submitbutton %}
+                        
+                        <h4 ></span><i class="fas fa-poll-h ml-3 mr-2 mb-2 orange-text"></i> Search Results</h4>
+  
+                        <small class="ml-3">Search Term: <span class="font-weight-bold text-danger">{{submitbutton}} </span> </small>
+                
+                    {% else %}
+                        <h5 >Metadata Search </h5>
+                        <h4 > </span><i class="now-ui-icons ui-1_zoom-bold  text-danger mr-2"></i> Search Results</h4>
+                    
+                    {% endif %}
+                 
+                      {% if technical_search_result or mappedtechnical_search_result %}
+                      {% if technical_search_result %}
+                          <small><i class="now-ui-icons business_chart-bar-32  text-danger mr-2"></i> Non-paired Total: <span class="font-weight-bold text-danger">{{technical_search_result.count}}</span></small>
+                      {% endif %}
+                      {% if mappedtechnical_search_result %}
+                          <small><i class="now-ui-icons business_chart-bar-32 text-danger mr-2"></i> Paired Total: <span class="font-weight-bold  text-danger">{{mappedtechnical_search_result.count}}</span></small>
+                      {% endif %}
+                      {% endif %}
+                   
+               
+                  </div>
+                  <div >
+                  </div>
+                  <div class="card-body main-body">
+                    <div class="container-fluid scroll">
+                        <div class="table-responsive">
+                          <table class="table table-bordered table-hover" >
+                            <!-- show search result given a search -->
+                            {% if submitbutton %}
+                              {% if technical_search_result or mappedtechnical_search_result %} 
+                                {% if technical_search_result %}
+                                    <thead >
+                                        <th class="bg-danger" style="font-weight: normal;">
+                                          Non-paired <span style="float: right;font-size: small;margin-right: 10px;font-weight: normal;">Date Modified / Created Date </span>
+                                        </th>
+                                    </thead>
+                                    <tbody > 
+                                        {% for i in technical_search_result %}
+                                        <tr data-widget="expandable-table" aria-expanded="false">  
+                                            <td>
+                                              <i class="now-ui-icons gestures_tap-01"></i><a  style="color: black;"  href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}"> {{i.ReceiptNumber}} - {{i.PaymentPartner|lower|capfirst}} <small class="font-weight-bold text-danger"> {{i.BalanceOriginal}} {{i.OriginalCurrencyCode}}  </small> <span  style="float: right;font-size: x-small;">{{i.ValueDate | date:"SHORT_DATE_FORMAT"}} </span></a>
+                                            </td>  
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                {% endif %}
+                                {% if mappedtechnical_search_result %}
+                                    <thead >
+                                        
+                                        <th  class="bg-danger" style="font-weight: normal;">
+                                          Paired <span style="float: right;font-size: small;margin-right: 10px;font-weight: normal;">Date Modified / Created Date </span>
+                                        </th>
+                                      
+                                    </thead>
+                                    <tbody > 
+                                        {% for i in mappedtechnical_search_result %}
+                                        <tr data-widget="expandable-table" aria-expanded="false">  
+                
+                                            <td>
+                                                <i class="now-ui-icons gestures_tap-01"></i><a  style="color: black;"  href="{% url 'PreviewApp:preview' foo=i.ReceiptNumber %}"> {{i.ReceiptNumber}} - {{i.BusinessPartner|lower|capfirst}} <small class="font-weight-bold text-danger">  {{i.Amount}} {{i.Currency}} </small> <span style="float: right;font-size: x-small;">{{i.ValueDate | date:"SHORT_DATE_FORMAT"}} </span></a>
+                                            </td> 
+                                          
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                {% endif %}
+                              {% else %}
+                                <div class="hero2-text">
+                                    <h1 style="font-size:20px">No Results!!! </h1>
+                                    
+                                </div>
+                              {% endif %}
+                            
+                            {% else %}
+                       
+                            <div class="hero2-text">
+                              <!-- <i class="now-ui-icons travel_info mb-3" style="font-size:40px"></i> -->
+    
+                              <h1 style="font-size:20px">No Results!!! </h1>
+                              
+                            </div>
+                            {% endif %}
+                          </table>
+                        </div>
+                    </div>
+                  </div>
+                
+                </div>
+            </div>
+     
+   
+        </div>
+      </div>
+    
+      <!--/. container-fluid -->
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <small>Copyright &copy; 2022<a href="https://adminlte.io">WAICA Receipt Management System by Techedge Africa</a>.</small>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1
+    </div>
+  </footer>
+</div>
+{% include '_includes/scripts.html' %}
+</body>
+</html>

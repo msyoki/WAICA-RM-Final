@@ -1,0 +1,148 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-danger elevation-4"  style="background-color: #555;">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link "  style="background-color: rgb(73, 73, 73);">
+      <img src="{% static 'assets/dist/img/RM2.jpg' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light"><small>RECEIPTING MODULE</small></span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar" >
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex  ">
+        <div class="image">
+          <img src="{% static 'assets/dist/img/profile.jpg' %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{request.user.first_name}} {{request.user.first_name}}</a>
+        </div>
+      </div>
+    
+      <!-- SidebarSearch Form -->
+      <div class="form-inline " >
+        <form class="form-inline" id="myForm" action="{% url 'PreviewApp:searchreceipt' %}" method="GET" value="{{request.GET.search}}">
+        <div class="input-group "  >
+          <input class="form-control form-control-sidebar bg-white"  name="search" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar bg-danger">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <!-- <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./index.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v1</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index2.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v2</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index3.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v3</p>
+                </a>
+              </li>
+            </ul>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link " >
+              <i class="nav-icon fas fa-id-card"></i>
+              <p>
+                {% if request.user.is_admin %}
+                <small> WAICARE : GLOBAL USER</small>
+                {% else %}
+                <small> WAICARE : {{request.user.country}}</small>
+                {% endif %}
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/" class="nav-link nav-link active " >
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'PreviewApp:latest_receipts' %}" class="nav-link">
+              <i class="nav-icon fas fa-receipt"></i>
+              <p>
+               <small>Receipts - Latest(20) </small>
+              
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="{% url 'PreviewApp:latest_pa' %}" class="nav-link">
+              <i class="nav-icon fas fa-file-invoice"></i>
+              <p>
+                <small>Payment Advices - Latest(20) </small>
+              
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item mb-5">
+            <a href="{% url 'PreviewApp:latest_ra' %}" class="nav-link">
+              <i class="nav-icon fas fa-money-check-alt"></i>
+              <p>
+               <small>REM-Allocations - Latest(20) </small>
+               
+              </p>
+            </a>
+          </li>
+         
+          <li class="nav-item ">
+            <a href="{% url 'account:activity_log' %}" class="nav-link">
+              <i class="nav-icon fas fa-clipboard-list"></i>
+           
+              <p>
+                Activity Log
+                
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'account:logout' %}" class="nav-link">
+              <i class="nav-icon fas fa-power-off"></i>
+       
+              <p>
+                Logout
+               
+              </p>
+            </a>
+          </li>
+
+
+        </ul>
+        
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

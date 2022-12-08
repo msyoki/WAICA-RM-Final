@@ -5378,6 +5378,7 @@ def updatenonpaired_receipt(request, foo):
     filename = foo + ".pdf"
     filepath = os.path.join(settings.FILES_DIR, filename)
     doclanguage = request.POST.get('doclanguage')
+    narration = request.POST.get('narration')
     context = {
         'filepath': filepath,
         'doclanguage': doclanguage,
@@ -5387,10 +5388,10 @@ def updatenonpaired_receipt(request, foo):
 
     if request.method == 'POST':
         try:
-            response = updatenonpairedreceipt(foo, doclanguage,user,request)
+            response = updatenonpairedreceipt(foo, doclanguage,narration,user,request)
             MappedTechnical.objects.filter(
                 ReceiptNumber=foo).update(
-                Doclanguage=doclanguage)
+                Doclanguage=doclanguage, Narration=narration)
             messages.success(request, f"{response}")
             # messages.success(request, "Updated successfully" )
             return render(request, 'edit_receipt.html', context)

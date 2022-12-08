@@ -1,0 +1,44 @@
+{% load static %}
+<div class="content-header">
+    <div class="container-fluid">
+ 
+      <div class="row ">
+        <div class="col-sm-6 mb-1">
+          <img style="background-color: white;width: 120px;height: auto ;" src="{% static 'assets/dist/img/waicalogo3.jpg' %}" alt="">
+         
+          <small class="ml-1 mt-2 text-secondary"><b>RECEIPTING MODULE MANAGER</b></small><br>
+          <small class="mb-2 ml-1 text-dark mt-4"><small>WAICA REINSURANCE CORPORATION PLC</small> </small> 
+   
+  
+         <!-- <h6 class="m-0 mt-1">WAICA REINSURANCE CORPORATION PLC</h6> -->
+        </div>
+        
+        <!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right" >
+            <li class="mr-1" ><a class="btn btn-danger btn-sm"  href="/"><i class="fa-solid fa-house mr-1"></i> <span >Home</span></a></li>
+            <li class="mr-1"><a class="btn btn-danger btn-sm"  onclick="window.history.back()"><i class="fa-solid fa-backward mr-1"></i> <span > Previous</span></a></li>
+            <li><a class="btn btn-danger btn-sm" onclick="window.history.forward()"> <span > Forward</span> <i class="fa-solid fa-forward ml-1"></i></a></li>
+      
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+      <div class="row">
+        {% if messages %}
+          {% for message in messages %}
+            <div class=" alert alert-{{ message.tags }} alert-dismissable messages text-center"  >
+              <button type="button" class="close text-white" data-dismiss="alert" aria-hidden="true" >&times;</button>
+            <small>{{message}}</small>
+            </div>
+          {% endfor %}
+        {% else %} 
+            
+      {% endif %}
+      </div>
+     
+     
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+
+  

@@ -1,0 +1,184 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+{% include '_includes/head.html' %}
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  {% include '_includes/preloader.html' %}
+
+  <!-- Navbar -->
+  {% include '_includes/navbar.html' %}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% include '_includes/sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% include '_includes/content-header.html' %}
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+   
+      <div class="container-fluid">
+    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card p-2">
+                    <div class="card-header">
+                       <div class="row">
+                        <h3 class="card-title"> </span><i class="fas fa-clipboard-check ml-3 orange-text"></i> User Activity Log </h3>
+                       </div>
+                       <br>
+                        
+                        <div class="container">
+                            <form>
+                                <div class="row">
+                                    <div class="form-group col-sm-12 col-md-2">
+                            
+                                    <!-- {{ filter.form.date.label_tag }} -->
+                                    {% render_field filter.form.date class="form-control form-control-sm" type="date" %}
+                            
+                                    </div>
+                            
+                                    <div class="form-group col-sm-12 col-md-2">
+                                    <!-- {{ filter.form.country.label_tag }} -->
+                                    {% render_field filter.form.country class="form-control form-control-sm"  %}
+                                    </div>
+                                    <div class="form-group col-sm-12 col-md-3 ">
+                                        <button type="submit" class="btn btn-warning btn-sm" >
+                                        <span class="glyphicon glyphicon-search"><i class="fa-solid fa-magnifying-glass mr-1"></i> </span> Search
+                                        </button>
+                                        <a class="btn btn-success btn-sm"    href="{% url 'account:excelreport' %}"><i class="fa-solid fa-file-csv mr-1"></i> Export Excel </a>
+                                    </div>
+                                    
+                                </div>
+                               
+                            
+                            
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                    <div class="table-responsive text-center">
+                        <table class="table table-bordered table-hover">
+                        <thead  class="alert alert-danger" >
+                            <th style="font-weight: normal;" >
+                            Date
+                            </th>
+                            <th style="font-weight: normal;" >
+                                Time
+                                </th>
+                            <th style="font-weight: normal;" >
+                            Activity
+                            </th>
+                            <th style="font-weight: normal;" >
+                            IP Address
+                            </th>
+                            <th style="font-weight: normal;" >
+                            Email
+                            </th>
+                            <th style="font-weight: normal;" >
+                            Full Name
+                            </th>
+                            <th style="font-weight: normal;" >
+                            Country
+                            </th>
+                            <th style="font-weight: normal;" >
+                              Action
+                            </th>
+                          
+                        
+                        </thead>
+       
+                        <tbody style="font-size:11px ;">
+                          
+        
+                            {% for user in users %}
+                            <tr data-widget="expandable-table" aria-expanded="false">
+                                <td> {{ user.date|date:"SHORT_DATE_FORMAT"  }}</td>
+                                <td>{{ user.time|time:'G:i:s' }}</td>
+                                <td>{{ user.activity }}</td>
+                                <td>{{ user.ip_address }}</td>
+                                <td>{{ user.user_email }}</td>
+                                <td>{{ user.user_name }}</td>
+                                <td>{{ user.country }}</td>
+                                <td><a href="{% url 'account:delete_log' pk=user.id %}"><i class="far fa-trash-alt orange-text"></i></a></td>
+                    
+                                <!-- <td><input type="checkbox" name="usercheck" />&nbsp;</td> -->
+                        
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="12" >No data</td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+    
+                        </table>
+                        {% if users.has_other_pages %}
+                        <ul class="pagination">
+                         {% if users.has_previous %}
+                           <li><a class="btn btn-sm btn-light"  href="?page={{ users.previous_page_number }}">&laquo; Previous</a></li>
+                         {% else %}
+                         
+                          <!-- <li class="disabled"><span>&laquo;</span></li> -->
+                       {% endif %}
+                         {% for i in users.paginator.page_range %}
+                           {% if users.number == i %}
+                             <li class="active btn btn-sm btn-light"><span>{{ i }} <span class="sr-only">(current)
+                          </span></span></li>
+                           {% else %}
+                             <li><a class="btn btn-sm btn-light" href="?page={{ i }}">{{ i }}</a></li>
+                           {% endif %}
+                         {% endfor %}
+                         {% if users.has_next %}
+                           <li><a class="btn btn-sm btn-light" href="?page={{ users.next_page_number }}">Next &raquo;</a></li>
+                         {% else %}
+                           <!-- <li class="disabled"><span>&raquo;</span></li> -->
+                         {% endif %}
+                       </ul>
+                     {% endif %}
+                    </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+        
+        
+        
+        
+        </div>
+      </div>
+    
+      <!--/. container-fluid -->
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <small>Copyright &copy; 2022<a href="https://adminlte.io">WAICA Receipt Management System by Techedge Africa</a>.</small>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1
+    </div>
+  </footer>
+</div>
+{% include '_includes/scripts.html' %}
+</body>
+</html>
