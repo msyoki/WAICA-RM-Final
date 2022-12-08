@@ -42,19 +42,19 @@
                                     <div class="form-group col-sm-12 col-md-2">
                             
                                     <!-- {{ filter.form.date.label_tag }} -->
-                                    {% render_field filter.form.date class="form-control" type="date" %}
+                                    {% render_field filter.form.date class="form-control form-control-sm" type="date" %}
                             
                                     </div>
                             
                                     <div class="form-group col-sm-12 col-md-2">
                                     <!-- {{ filter.form.country.label_tag }} -->
-                                    {% render_field filter.form.country class="form-control"  %}
+                                    {% render_field filter.form.country class="form-control form-control-sm"  %}
                                     </div>
                                     <div class="form-group col-sm-12 col-md-3 ">
-                                        <button type="submit" class="btn btn-info btn-sm" >
-                                        <span class="glyphicon glyphicon-search"></span> Search
+                                        <button type="submit" class="btn btn-warning btn-sm" >
+                                        <span class="glyphicon glyphicon-search"><i class="fa-solid fa-magnifying-glass mr-1"></i> </span> Search
                                         </button>
-                                        <a class="btn btn-success btn-sm"    href="{% url 'account:excelreport' %}">Export Excel </a>
+                                        <a class="btn btn-success btn-sm"    href="{% url 'account:excelreport' %}"><i class="fa-solid fa-file-csv mr-1"></i> Export Excel </a>
                                     </div>
                                     
                                 </div>
